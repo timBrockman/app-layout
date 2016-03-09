@@ -24,6 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         @apply(--layout-horizontal);
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        overflow: hidden;
       }
 
       .items {
@@ -32,27 +33,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 35%;
         overflow-y: auto;
         background-color: #f3f3f3;
-        padding-left: 10px;
-        padding-right: 10px;
         box-sizing: border-box;
       }
 
-      .itemsGrid {
-        @apply(--layout-horizontal);
-        @apply(--layout-wrap);
-        @apply(--layout-center-justified);
-        margin-top: 10px;
+      app-grid {
+        --gutter: 10px;
+        --columns: 2;
+        --cell-height: 100%;
+        margin: 20px;
       }
 
-      .itemsGrid > .item {
-        -webkit-flex: 1 calc(50% - 20px);
-        flex: 1 calc(50% - 20px);
-        max-width: calc(50% - 20px);
-        height: 15vmax;
-        min-height: 100px;
-        margin: 10px;
-        text-decoration: none;
+      [grid-item] {
         background-color: white;
+        text-decoration: none;
       }
 
       .detailSection {
@@ -73,6 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .image {
         width: 40vmin;
         position: relative;
+        margin-right: 20px;
       }
 
       .image img {
@@ -177,13 +171,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .items {
           @apply(--layout-flex-none);
           width: 100vw;
+          overflow: hidden;
         }
 
-        .itemsGrid > .item {
-          -webkit-flex: 1 calc(33% - 20px);
-          flex: 1 calc(33% - 20px);
-          max-width: calc(33% - 20px);
-          height: 40vmin;
+        app-grid {
+          --columns: 3;
         }
 
         .detailSection {
@@ -202,10 +194,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           @apply(--layout-flex-none);
         }
 
-        .itemsGrid > .item {
-          -webkit-flex: 1 calc(50% - 20px);
-          flex: 1 calc(50% - 20px);
-          max-width: calc(50% - 20px);
+        app-grid {
+          --columns: 2;
+          --gutter: 5px;
+
         }
 
         h1 {
@@ -221,13 +213,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="items">
-      <div class="itemsGrid">
+      <app-grid centered-items>
         <template is="dom-repeat" items="[[relatedItems]]">
-          <a href$="#[[section]]/[[item.id]]" title$="[[item.title]]" class="item">
+          <a href$="#[[section]]/[[item.id]]" title$="[[item.title]]" grid-item>
             <shrine-simple-item item="[[item]]"></shrine-simple-item>
           </a>
         </template>
-      </div>
+      </app-grid>
     </div>
 
     <div class="detailSection">
